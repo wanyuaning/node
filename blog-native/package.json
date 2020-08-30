@@ -1,0 +1,19 @@
+{
+    "name": "blog-native",
+    "version": "1.0.0",
+    "description": "nodemon   监测开发文件变化，自动重启node cross-env  设置环境变量，兼容mac/linux/windows",
+    "main": "app.js",
+    "bin": {
+        "blog-native": "www.js"
+    },
+    "scripts": {
+        "dev": "nodemon bin/www.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    }
+}
