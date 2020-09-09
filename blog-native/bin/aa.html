@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>aaaaa</h1>
+    <a id="asdr" href="baidu.com">百度</a>
+    <button id="asd">百度</button>
+    <script>
+        var link = document.getElementById('asd')
+        link.addEventListener('mouseover', function () {
+            console.log(1111)
+            window.defaultStatus = n + 'qqqqqqqqqqqq';
+            window.status = n + 'ssssssss';
+        })
+        var n = 0;
+        //var t = setInterval(function () { asd() }, 500)
+        function asd() {
+            window.defaultStatus = n + 'qqqqqqqqqqqq';
+            window.status = n + 'ssssssss';
+            n++;
+            console.log(n);
+            if (n > 1000) { clearInterval(t) }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

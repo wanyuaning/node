@@ -1,49 +1,41 @@
+const { exec } = require('../db/mysql')
+
 const getList = (author, keyword) => {
-    return [
-        {
-            id: 1,
-            title: '博客标题',
-            content: '',
-            createtime: 1546610491112,
-            author: 'ewan'
-        },
-        {
-            id: 2,
-            title: '标题2',
-            content: '内容2',
-            createTime: 1546610524373,
-            author: 'zhangsan'
-        }
-    ]
+    let sql = `select * from blogs where 1=1 `
+    if (author) {
+        sql += `and author='${author}' `
+    }
+    if (keyword) {
+        sql += `and title like '%${keyword}%' `
+    }
+    sql += `order by createtime desc;`
+
+    return exec(sql)
 }
 const getDetail = (id) => {
     if (!id) { return { status: -1, message: '缺失ID' } }
-    return {
-        status: 0,
-        data: {
-            id: 1,
-            title: '博客标题',
-            content: '',
-            createtime: 1546610491112,
-            author: 'ewan'
-        }
-    }
+    const sql = `select * from blogs where id = '${id}'`
+    return exec(sql)
 
 }
 const newBlog = (blogData = {}) => {
-    console.log('新增博客数据', blogData)
-    return {
-        id: 3
-    }
+    const title = blogData.title
+    const content = blogData.content
+    const createtime = new Date().getTime()
+    const author = blogData.author
+    const sql = `insert into blogs (title, content, createtime, author) values('${title}', '${content}', '${createtime}', '${author}')`
+    return exec(sql)
 }
 const updateBlog = (updateData = {}) => {
-    console.log('新增博客数据', updateData)
-    return {
-        id: 2
-    }
+    const id = updateData.id
+    const title = updateData.title
+    const content = updateData.content
+    const sql = `update blogs set title='${title}', content='${content}' where id='${id}'`
+    return exec(sql)
 }
-const delBlog = (id = {}) => {
-    return id + '删除成功！'
+const delBlog = (id, author) => {
+    const sql = `delete from blogs where id='${id}' and author=''${author}`
+    return exec(sql)
 }
 
 module.exports = {

@@ -38,16 +38,22 @@ module.exports = (req, res) => {
         req.body = JSON.parse(data)
 
         // 处理blog路由
-        const blogData = handleBlogRouter(req, res)
-        if (blogData) {
-            res.end(JSON.stringify(blogData))
+        const result = handleBlogRouter(req, res)
+        if (result) {
+            result.then(blogData => {
+                res.end(JSON.stringify(blogData))
+            })
             return
         }
 
+
+
         // 处理user路由
-        const userData = handleUserRouter(req, res)
-        if (userData) {
-            res.end(JSON.stringify(userData))
+        const userResult = handleUserRouter(req, res)
+        if (userResult) {
+            userResult.then(userData => {
+                res.end(JSON.stringify(userData))
+            })
             return
         }
 

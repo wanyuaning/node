@@ -8,40 +8,49 @@ const handleBlogRouter = (req, res) => {
     if (method === 'GET' && req.path === '/api/blog/list') {
         const author = req.query.author || ''
         const keyword = req.query.keyword || ''
-        const listData = getList(author, keyword)
-
-        return new SuccessModel(listData)
+        const result = getList(author, keyword)
+        return result.then(listData => {
+            return new SuccessModel(listData)
+        })
     }
 
     // 获取博客详情
     if (method === 'GET' && req.path === '/api/blog/detail') {
         const id = req.query.id
-        const resData = getDetail(id)
-
-        if (resData.status === 0) {
-            return new SuccessModel(resData.data)
-        } else {
-            return new ErrorModel(resData.message)
-        }
-
+        const result = getDetail(id)
+        return result.then(detail => {
+            return new SuccessModel(detail)
+        })
     }
 
     // 新建一篇博客
     if (method === 'POST' && req.path === '/api/blog/new') {
-        const resData = newBlog(req.body)
-        return new SuccessModel(resData)
+        const result = newBlog(req.body)
+        return result.then(data => {
+            return new SuccessModel({
+                id: data.insertId
+            })
+        })
+
     }
 
     // 更新一篇博客
     if (method === 'POST' && req.path === '/api/blog/update') {
-        const resData = updateBlog(req.body)
-        return new SuccessModel(resData)
+        const result = updateBlog(req.body)
+        return result.then(data => {
+            // affectedRows changedRows
+            return new SuccessModel(data)
+        })
     }
 
     // 删除一篇博客
     if (method === 'POST' && req.path === '/api/blog/del') {
-        const resData = delBlog(req.body.id)
-        return new SuccessModel(resData)
+        const author = 'ewan'
+        const result = delBlog(req.body.id, author)
+        return result.then(data => {
+            // affectedRows changedRows
+            return new SuccessModel(data)
+        })
     }
 }
 
